@@ -41,13 +41,15 @@ int main()
     
     glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
+    glClearColor(.25f, .25f, .25f, 1);
+
+    std::cout << "Build succeeded!";
 
     // Main loop
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
 
-        glClearColor(.25f, .25f, .25f, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);
@@ -62,8 +64,13 @@ int main()
 void processInput(GLFWwindow* currentWindow)
 {
     // Close Application
-    if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(currentWindow, GLFW_KEY_BACKSPACE))
+    if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(currentWindow, GLFW_KEY_BACKSPACE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(currentWindow, true);
     }
+
+    // Background Color Switch
+    else if (glfwGetKey(currentWindow, GLFW_KEY_R) == GLFW_PRESS) glClearColor(1, 0, 0, 1);
+    else if (glfwGetKey(currentWindow, GLFW_KEY_G) == GLFW_PRESS) glClearColor(0, 1, 0, 1);
+    else if (glfwGetKey(currentWindow, GLFW_KEY_B) == GLFW_PRESS) glClearColor(0, 0, 1, 1);
 }
