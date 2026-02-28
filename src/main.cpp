@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+void processInput(GLFWwindow* window);
+
 void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -40,14 +42,28 @@ int main()
     glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
 
-    // Keep running and handle closing
+    // Main loop
     while (!glfwWindowShouldClose(window))
     {
+        processInput(window);
+
+        glClearColor(.5f, .5f, .5f, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
     glfwTerminate();
-
+    
     return 0;
+}
+
+void processInput(GLFWwindow* window)
+{
+    // Close Application
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_BACKSPACE))
+    {
+        glfwSetWindowShouldClose(window, true);
+    }
 }
